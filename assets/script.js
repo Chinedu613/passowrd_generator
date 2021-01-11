@@ -11,69 +11,78 @@ var numeric = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 var specialCharacters = ["!", "@", "#", "$", "%", "^", "&", "*", "=", "-", "_", "'"];
 
-var userPasswordCriteria = [];
-console.log(userPasswordCriteria);
-var userPassword = "";
-console.log(userPassword);
+
+
 
 //Function to Start Generating Password
 function generatePassword() {
-  var passwordLength = prompt("provide password length");//says password length and input length is not defined
+  var userPassword = [];
 
-    inputLength = parseInt(passwordLength)
-  console.log(inputLength)
+  var userPasswordCriteria = [];
+
+  var passwordLength = parseInt(prompt("provide password length"));//says password length and input length is not defined
+
 
   // check if the 8 < passwordLength < 128
-  if (inputLength < 8 || inputLength > 128) {
+  if (passwordLength < 8 || passwordLength > 128) {
     alert("password lenght must be at least 8 characters long and no more than 128 characters");
-    return console.log(inputLength);
+
+    return
+  }
+// Makes sure Password length is a number and not string
+  if (isNaN(passwordLength)){
+    
+    alert("Password Length must be a number");
+    
+    return
   }
 
   // Confirm the Characters the User would like to use
-  else {
-    var lowerCaseLetters = confirm("Would you like to make your password contain lower case alphabetical characters?");
-    if (lowerCaseLetters){
+
+    var confirmLowerCaseLetters = confirm("Would you like to make your password contain lower case alphabetical characters?");
+    if (confirmLowerCaseLetters){
       userPasswordCriteria = userPasswordCriteria.concat(lowerCaseLetters);
-      console.log(userPasswordCriteria); 
+     
     }
-    var upperCaseLetters = confirm("Would you like to make your password contain upper case alphabetical characters?"); 
-    if (upperCaseLetters){
+    var confirmUpperCaseLetters = confirm("Would you like to make your password contain upper case alphabetical characters?"); 
+    if (confirmUpperCaseLetters){
       userPasswordCriteria = userPasswordCriteria.concat(upperCaseLetters);
-      console.log(userPasswordCriteria);
+    
   }
-  var numeric = confirm("Would you like to make your password contain numeric characters?"); 
-  if (numeric){
+  var confirmNumeric = confirm("Would you like to make your password contain numeric characters?"); 
+  if (confirmNumeric){
     userPasswordCriteria = userPasswordCriteria.concat(numeric);
-    console.log(userPasswordCriteria);
+  
 }
-var specialCharacters = confirm("Would you like to make your password contain numeric characters?"); 
-if (specialCharacters){
+var confirmSpecialCharacters = confirm("Would you like to make your password contain numeric characters?"); 
+if (confirmSpecialCharacters){
   userPasswordCriteria = userPasswordCriteria.concat(specialCharacters);
-  console.log(userPasswordCriteria);
+ 
 }
-  
-  if (lowerCaseLetters === false && upperCaseLetters === false){
+  // Validation to choose one at least 1 criteria
+  if (confirmLowerCaseLetters  === false && confirmUpperCaseLetters === false && confirmNumeric === false && confirmSpecialCharacters === false){
     alert("must choose a password criteria")
-  }return userPasswordCriteria;
+  }return userPasswordCriteria; 
   console.log(userPasswordCriteria);
-  }
 
-  //Create Loop for Password
-for (var i = 0; i <= inputLength; i++){
-
-  var entry = Math.floor(Math.random() * userPasswordCriteria.length);
   
-  userPassword += userPasswordCriteria[entry]; 
+  //Create Loop for Password
+for (var i = 0; i <= passwordLength; i++){
+//entry holds random index of array
+  var entry = Math.floor(Math.random() * userPasswordCriteria.length);
 
-
-
+  userPassword.push(userPasswordCriteria[entry]); 
 }
 
+// console.log("This is line 65", userPassword);
+return userPassword.join('')
 }
+
 
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
+
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
