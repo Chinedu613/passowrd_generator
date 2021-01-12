@@ -16,25 +16,25 @@ var specialCharacters = ["!", "@", "#", "$", "%", "^", "&", "*", "=", "-", "_", 
 
 //Function to Start Generating Password
 function generatePassword() {
-  var userPassword = [];
+  var userPassword = "";
 
   var userPasswordCriteria = [];
 
   var passwordLength = parseInt(prompt("provide password length"));//says password length and input length is not defined
 
+   /*  inputLength = parseInt(passwordLength)
+  console.log(inputLength) */
 
   // check if the 8 < passwordLength < 128
   if (passwordLength < 8 || passwordLength > 128) {
     alert("password lenght must be at least 8 characters long and no more than 128 characters");
 
-    return
+    return console.log(passwordLength);
   }
-// Makes sure Password length is a number and not string
+
   if (isNaN(passwordLength)){
-    
     alert("Password Length must be a number");
-    
-    return
+    return;
   }
 
   // Confirm the Characters the User would like to use
@@ -59,11 +59,11 @@ if (confirmSpecialCharacters){
   userPasswordCriteria = userPasswordCriteria.concat(specialCharacters);
  
 }
-  // Validation to choose one at least 1 criteria
-  if (confirmLowerCaseLetters  === false && confirmUpperCaseLetters === false && confirmNumeric === false && confirmSpecialCharacters === false){
+  
+  /* if (confirmLowerCaseLetters  === false && upperCaseLetters === false && upperCaseLetters === false){
     alert("must choose a password criteria")
-  }return userPasswordCriteria; 
-  console.log(userPasswordCriteria);
+  }return userPasswordCriteria; */
+  /* console.log(userPasswordCriteria); */
 
   
   //Create Loop for Password
@@ -71,11 +71,11 @@ for (var i = 0; i <= passwordLength; i++){
 //entry holds random index of array
   var entry = Math.floor(Math.random() * userPasswordCriteria.length);
 
-  userPassword.push(userPasswordCriteria[entry]); 
+  userPassword += userPasswordCriteria[entry]; 
 }
 
 // console.log("This is line 65", userPassword);
-return userPassword.join('')
+return userPassword
 }
 
 
